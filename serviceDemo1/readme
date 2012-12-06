@@ -1,0 +1,32 @@
+调用Service的不同方法,第一种方式 ：
+在startService时传常量，标识进入到Service后要调用哪个方法。如：
+   op = 1;
+	Bundle bundle = new Bundle();
+	bundle.putInt("op", op);
+	intent.putExtras(bundle);
+	startService(intent);
+	
+	然后在Service的OnStart 方法中switch...case判断调用具体哪个方法：
+		@Override
+	public void onStart(Intent intent, int startId) {
+		Log.v(TAG, "onStart");
+		System.out.println(startId+"********");
+		if (intent != null) {
+			Bundle bundle = intent.getExtras();
+			if (bundle != null) {
+				int op = bundle.getInt("op");
+				switch (op) {
+				case 1:
+					play();
+					break;
+				case 2:
+					stop();
+					break;
+				case 3:
+					pause();
+					break;
+				}
+
+			}
+		}
+		

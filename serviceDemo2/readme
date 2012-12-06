@@ -1,0 +1,12 @@
+跟第一种差别不大，只是不直接调用Service里的某个方法，而是通过广播的形式。
+发起广播，传过去参数，再在广播接收者里面判断要调用Serivce的哪个方法。如下：
+		Bundle bundle = intent.getExtras();
+		intents.putExtras(bundle);
+
+		if (bundle != null) {
+			int op = bundle.getInt("op");
+			if (op == 4) {
+				context.stopService(intents);
+			} else {
+				context.startService(intents);
+			}
